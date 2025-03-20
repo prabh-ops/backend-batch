@@ -15,5 +15,5 @@ connectionDb
     });
   })
   .catch((err) => {
-    console.log("  connection failed", err);
+    console.log(" connection failed", err);
   });
