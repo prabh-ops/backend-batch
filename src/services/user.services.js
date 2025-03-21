@@ -36,6 +36,10 @@ export const updateUser = async (id, body) => {
   //  return User.findById(id)
 
   // ??  third method  for update the user
+  const userid=  await  User.findById(id)
+  if(!userid){
+    throw new Error("user not found");
+  }
   const user = await User.findByIdAndUpdate(id, body, { new: true });
   return user;
 };
@@ -45,5 +49,4 @@ export const deleteUser = async (id) => {
   if (!user) {
   throw new Error("Prabh Not found")
   }
-
 };

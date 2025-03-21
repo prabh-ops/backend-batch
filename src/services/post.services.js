@@ -16,6 +16,13 @@ export const getPost = async (id) => {
 };
 
 export const updatePost = async (id, body) => {
+
+const postid =await Post.findById(id)
+if(!postid){
+throw new Error('Post not found')
+}
+
+
   return await Post.findByIdAndUpdate(
     {
       _id: id,
@@ -27,6 +34,7 @@ export const updatePost = async (id, body) => {
       new: true,
     }
   );
+
 };
 
 export const deletePost = async (id) => {
