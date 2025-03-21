@@ -11,7 +11,9 @@ export const getPosts = async () => {
 };
 
 export const getPost = async (id) => {
-  const post = await Post.findById(id);
+  const post = await Post.findById({
+    _id: id,
+  });
   return post;
 };
 

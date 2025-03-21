@@ -5,7 +5,7 @@ const postRouter = Router();
 
 postRouter.post("/",createPostController)
 postRouter.get("/",getPostsController)
-postRouter.get("/",getPostController)
+postRouter.get("/:id",getPostController)
 postRouter.put("/:id",updatePostController)
 postRouter.delete("/:id",deletePostController)
 
