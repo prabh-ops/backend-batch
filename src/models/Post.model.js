@@ -14,6 +14,7 @@ const Postschema = new mongoose.Schema(
       ref: "User",
     },
     visibility: {
+      type: String,
       enum: ["public", "private"],
       default: "public",
     },
@@ -22,11 +23,18 @@ const Postschema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
+      
     ],
     comment: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Comment",
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        content: {
+          type: String,
+          required: true,
+        },
       },
     ],
     share: {

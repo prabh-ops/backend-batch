@@ -4,11 +4,11 @@ import {
   getUser,
   getUsers,
   updateUser,
-} from "../servers/user.servers.js";
+} from "../services/user.services.js";
 
 export const createUsercontroller = async (req, res) => {
   try {
-    const user = await createUser(req.body);
+    const user = await createUser(createUserreq.body);
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ message: "Error creating user" });
@@ -30,7 +30,6 @@ export const getUsercontroller = async (req, res) => {
   }
 };
 
-
 export const getUserscontroller = async (req, res) => {
   try {
     const users = await getUsers();
@@ -41,12 +40,9 @@ export const getUserscontroller = async (req, res) => {
   }
 };
 export const updateUsercontroller = async (req, res) => {
-
   try {
     const user = await updateUser(req.params.id, req.body);
-    res.status(200).json({message: "User updated successfully", user});
-
-
+    res.status(200).json({ message: "User updated successfully", user });
   } catch (error) {
     res.status(500).json({ message: "Error updating user" });
     console.log(req.body, error);
@@ -54,9 +50,14 @@ export const updateUsercontroller = async (req, res) => {
 };
 export const deleteUsercontroller = async (req, res) => {
   try {
-    const deleteUser = await deleteUser(req.params.id);
-    res.status(200).json(deleteUser);
+    const { id } = req.params;
+    await deleteUser(id);
+    res
+      .status(200)
+      .json({ message: "User deleted successfully", success: true });
   } catch (error) {
-    res.status(500).json({ message: "Error deleting user" });
+    console.log("error :>> ", error);
+
+    res.status(500).json({ message: error.message, success: false });
   }
 };
