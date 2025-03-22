@@ -7,13 +7,13 @@ export const createUser = async (param) => {
 };
 export const getUser = async (param) => {
   const user = await User.find({
-    email: param,
+    _id: param,
   });
 
   return user;
 };
 export const getUsers = async () => {
-  const user = await User.find();
+  const user = await User.find()
   console.log(user);
   return user;
 };

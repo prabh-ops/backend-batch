@@ -1,4 +1,4 @@
-import { Post } from "../models/Post.model.js";
+import Post  from "../models/Post.model.js";
 
 export const createPost = async (param) => {
   const post = await Post(param).save();
@@ -6,7 +6,19 @@ export const createPost = async (param) => {
 };
 
 export const getPosts = async () => {
-  const posts = await Post.find();
+  const posts = await Post.find().populate([
+    {
+      path: "PostBy",
+      select: "name email",
+    },
+    {
+      path: "comment",
+      populate: {
+        path: "user", 
+        select: "name email",
+      },
+    },
+  ]);
   return posts;
 };
 

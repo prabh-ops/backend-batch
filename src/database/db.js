@@ -1,3 +1,4 @@
-import mongoose from "mongoose";
-const connectionDb = mongoose.connect("mongodb://localhost:27017/sagmatic");
-export  default connectionDb
+import { connect}from "mongoose";
+const connectionDb = connect("mongodb://localhost:27017/sagmatic");
+export default connectionDb
+

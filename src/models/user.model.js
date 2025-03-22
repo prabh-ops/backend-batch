@@ -20,13 +20,13 @@ const userSchema = new mongoose.Schema(
     follower:[
      {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'newUser',
      }
     ],
     follows: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'newUser'
       }
     ],
   },

@@ -11,7 +11,7 @@ const Postschema = new mongoose.Schema(
     },
     PostBy: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "newUser",
     },
     visibility: {
       type: String,
@@ -21,7 +21,7 @@ const Postschema = new mongoose.Schema(
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "newUser",
       },
     ],
     comment: [
@@ -46,11 +46,11 @@ const Postschema = new mongoose.Schema(
     mentions: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "newUser",
       },
     ],
   },
   { timestamps: true }
 );
-
-export const Post = mongoose.model("Post", Postschema);
+ const Post = mongoose.model("Post", Postschema);
+export default Post;

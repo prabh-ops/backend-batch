@@ -1,6 +1,7 @@
 import app from "./app.js";
 import connectionDb from "./database/db.js";
 import dotenv from 'dotenv'
+// import testModel from "./model.test.js";
 
 
 
@@ -17,3 +18,7 @@ connectionDb
   .catch((err) => {
     console.log(" connection failed", err);
   });
+
+
+
+  // testModel()
