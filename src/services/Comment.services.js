@@ -56,14 +56,13 @@ export async function getCommentsByPostId(postId) {
 }
 
 
-// Update a comment by ID
+
 export async function updateComment(id, data) {
   return await Comment.findByIdAndUpdate(id, data, { new: true });
 }
 
 export async function deleteComment(id) {
-  const comment = await Comment.findById(id);
-  console.log(comment);
+  const comment = await Comment.findById(id); 
   await Comment.findByIdAndDelete(id);
   return {
     message: "Comment deleted successfully",
