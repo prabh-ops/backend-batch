@@ -1,4 +1,4 @@
 import { connect}from "mongoose";
-const connectionDb = connect("mongodb://localhost:27017/sagmatic");
+const connectionDb = connect(process.env.MONGODB_URL);
 export default connectionDb
 

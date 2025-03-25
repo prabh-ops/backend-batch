@@ -3,6 +3,7 @@ import userRouter from "./router/user.router.js";
 import postRouter from "./router/post.router.js";
 import commentRouter from "./router/comments.router.js";
 import likeRouter from "./router/likes.router.js";
+import followerRouter from "./router/follower.router.js";
 
 
 
@@ -14,4 +15,5 @@ app.use("/user",userRouter)
 app.use("/comments", commentRouter);
 app.use("/post",postRouter)
 app.use("/post",likeRouter)
+app.use("/user/",followerRouter)
  export default app;
