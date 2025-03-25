@@ -2,7 +2,7 @@ import express from "express";
 import {
   addLikeController,
   removeLikeController,
-} from "../controller/likes.controller.js";
+} from "../controllers/likes.controller.js";
 
 const likeRouter = express.Router();
 

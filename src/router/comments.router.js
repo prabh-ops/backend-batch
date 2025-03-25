@@ -6,7 +6,7 @@ import {
   getCommentsByPostIdController,
   getCommentsByUserController,
   updateCommentController,
-} from "../controller/comment.controller.js";
+} from "../controllers/comment.controller.js";
 
 const commentRouter = Router();
 
