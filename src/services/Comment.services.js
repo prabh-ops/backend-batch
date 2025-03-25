@@ -24,21 +24,73 @@ export async function addComment(postId, data) {
   return comment;
 }
 
-export async function getComments(filter = {}) {
-  return await Comment.find(filter).populate("user");
+export async function getCommentsByUser(userid) {
+  return Comment.find({
+    user: userid,
+  }).populate("user");
 }
-
+export async function getCommentById(commentId) {
+  const comment = await Comment.findById(commentId).populate("user");
+  if (!comment) {
+    throw new Error("Comment not found");
+  }
+  return comment;
+}
 // Retrieve comments for a specific post by post ID
 export async function getCommentsByPostId(postId) {
-  return await Comment.find({ postId });
+  const post = await Post.findById(postId)
+    .populate({
+      path: "comment",
+      populate: {
+        path: "user",
+      },
+    })
+    .populate("PostBy");
+  if (!post) {
+    throw new Error("Post not found");
+  }
+  if (post.comment.length === 0) {
+    throw new Error("No comments found");
+  }
+  return post.comment;
 }
+
 
 // Update a comment by ID
 export async function updateComment(id, data) {
   return await Comment.findByIdAndUpdate(id, data, { new: true });
 }
 
-// Delete a comment by ID
 export async function deleteComment(id) {
-  return await Comment.findByIdAndDelete(id);
+  const comment = await Comment.findById(id);
+  console.log(comment);
+  await Comment.findByIdAndDelete(id);
+  return {
+    message: "Comment deleted successfully",
+  };
+}
+
+export async function deleteCommentPost(postId, commentId) {
+  const post = await Post.findById({
+    _id: postId,
+  });
+  console.log(post);
+  if (!post) {
+    throw new Error("Post not found");
+  }
+
+  const comment = await Comment.findById(commentId);
+  if (!comment) {
+    throw new Error("Comment not found");
+  }
+
+  await Comment.deleteOne({ _id: commentId });
+
+  // Remove the comment reference from the post
+  await Post.updateOne(
+    { _id: postId },
+    { $pull: { comment: commentId } } // pull method to remove the comment from the post
+  );
+
+  return { message: "Comment deleted successfully" };
 }

@@ -2,6 +2,7 @@ import express from "express";
 import userRouter from "./router/user.router.js";
 import postRouter from "./router/post.router.js";
 import commentRouter from "./router/comments.router.js";
+import likeRouter from "./router/likes.router.js";
 
 
 
@@ -12,4 +13,5 @@ app.use(express.json())
 app.use("/user",userRouter)
 app.use("/comments", commentRouter);
 app.use("/post",postRouter)
+app.use("/post",likeRouter)
  export default app;

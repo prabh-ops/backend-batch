@@ -14,7 +14,6 @@ export const getUser = async (param) => {
 };
 export const getUsers = async () => {
   const user = await User.find()
-  console.log(user);
   return user;
 };
 

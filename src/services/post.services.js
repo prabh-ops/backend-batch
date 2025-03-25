@@ -10,6 +10,8 @@ export const getPosts = async () => {
     {
       path: "PostBy",
       select: "name email",
+    },{
+      path:"likes"
     },
     {
       path: "comment",
@@ -25,7 +27,21 @@ export const getPosts = async () => {
 export const getPost = async (id) => {
   const post = await Post.findById({
     _id: id,
-  });
+  }).populate([
+    {
+      path: "PostBy",
+      select: "name email",
+    },{
+      path:"likes"
+    },
+    {
+      path: "comment",
+      populate: {
+        path: "user", 
+        select: "name email",
+      },
+    },
+  ]);
   return post;
 };
 
@@ -52,9 +68,20 @@ throw new Error('Post not found')
 };
 
 export const deletePost = async (id) => {
-  const post = await Post.findById(id);
+  const post = await Post.findById(id).populate("comment");
   if (!post) {
-    return { message: "Post not found" };
+    throw new Error("Post not found");
   }
+
+  // Delete all comments associated with the post
+  if (post.comment && post.comment.length > 0) {
+    for (const comment of post.comment) {
+      await comment.deleteOne();
+    }
+  }
+
+  // Delete the post itself
   await post.deleteOne();
+
+  return { message: "Post and associated comments deleted successfully" };
 };
