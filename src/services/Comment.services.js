@@ -37,7 +37,7 @@ export async function getCommentById(commentId) {
   return comment;
 }
 // Retrieve comments for a specific post by post ID
-export async function getCommentsByPostId(postId) {
+export async function getCommentsByPostId(postId){
   const post = await Post.findById(postId)
     .populate({
       path: "comment",

@@ -46,6 +46,6 @@ export const updateUser = async (id, body) => {
 export const deleteUser = async (id) => {
   const user = await User.findByIdAndDelete({_id:new mongoose.Types.ObjectId(id)});
   if (!user) {
-  throw new Error("Prabh Not found")
+  throw new Error("user Not found")
   }
 };

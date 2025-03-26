@@ -41,7 +41,7 @@ export const getPost = async (id) => {
         select: "name email",
       },
     },
-  ]);
+  ])
   return post;
 };
 

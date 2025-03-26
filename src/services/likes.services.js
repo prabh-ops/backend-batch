@@ -7,6 +7,10 @@ export const addLike = async (postId, userId) => {
     throw new Error("Post not found");
   }
 
+if(like.likes.includes(userId)){
+    return { message: "User already liked this post" };
+  }
+
   await Post.updateOne(
     {
       _id: postId,
@@ -26,6 +30,11 @@ export const removeLike = async (postId, userId) => {
   if (!like) {
     throw new Error("Post not found");
   }
+
+  if (!like.likes.includes(userId)) {
+    return { message: "User has not liked this post" };
+  }
+
   await Post.updateOne(
     {
       _id: postId,

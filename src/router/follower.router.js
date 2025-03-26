@@ -4,8 +4,8 @@ import { addfollowerController, unfollowerController } from '../controllers/foll
 
 
 const followerRouter = express.Router();
-followerRouter.post('/followers/?',addfollowerController);
-followerRouter.delete('/followers/?',unfollowerController);
+followerRouter.post('/follower',addfollowerController);
+followerRouter.post('/unfollower',unfollowerController);
 
 
 export default followerRouter;
