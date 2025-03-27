@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import User from "../models/user.model.js";
+import { populate } from "dotenv";
 
 export const createUser = async (param) => {
   const user = await User(param).save();
@@ -12,8 +13,20 @@ export const getUser = async (param) => {
 
   return user;
 };
+
 export const getUsers = async () => {
-  const user = await User.find()
+  const user = await User.find().populate([
+   {
+    path:"post",
+    populate:{
+      path:"comments",
+      populate:{
+        path:"user",
+      },
+      path:"likes",
+    }
+   }
+  ])
   return user;
 };
 

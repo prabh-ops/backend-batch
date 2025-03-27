@@ -20,7 +20,6 @@ export async function addComment(postId, data) {
     { _id: postId },
     { $addToSet: { comment: comment._id } }
   );
-
   return comment;
 }
 

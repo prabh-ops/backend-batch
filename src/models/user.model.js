@@ -17,18 +17,28 @@ const userSchema = new mongoose.Schema(
     bio: {
       type: String,
     },
-    follower:[
-     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'newUser',
-     }
+    follower: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "newUser",
+      },
     ],
     follows: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'newUser'
-      }
+        ref: "newUser",
+      },
     ],
+    password: {
+      type: String,
+      required: true,
+    },
+    post:[
+      {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Post"
+      }
+    ]
   },
   {
     timestamps: true,

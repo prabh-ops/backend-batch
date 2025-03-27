@@ -9,10 +9,6 @@ const Postschema = new mongoose.Schema(
     media: {
       type: String,
     },
-    PostBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "newUser",
-    },
     visibility: {
       type: String,
       enum: ["public", "private"],
