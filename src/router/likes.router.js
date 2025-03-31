@@ -6,7 +6,7 @@ import {
 
 const likeRouter = express.Router();
 
-likeRouter.post("/addlike/?", addLikeController);
-likeRouter.post("/removelike/?", removeLikeController);
+likeRouter.post("/addlike/", addLikeController);
+likeRouter.post("/removelike/", removeLikeController);
 
 export default likeRouter;

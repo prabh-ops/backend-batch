@@ -5,7 +5,7 @@ import {
   addComment,
   deleteCommentPost,
   getCommentsByUser,
-} from "../services/Comment.services.js";
+} from "../services/Comment.service.js";
 
 export async function addCommentController(req, res) {
   const { postId } = req.params;

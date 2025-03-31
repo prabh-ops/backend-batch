@@ -1,13 +1,13 @@
 import {
   createPost,
   deletePost,
-} from "../services/post.services.js";
+} from "../services/post.service.js";
 
 export const createPostController = async (req, res) => {
-  
+  const loggedInUserId=req.auth
   try {
    
-    const post = await createPost( req.params.userId,req.body);
+    const post = await createPost( loggedInUserId,req.body);
     res.status(201).json(post);
   } catch (error) {
     res.status(400).json({ message: error.message });

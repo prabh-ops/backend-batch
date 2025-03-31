@@ -30,10 +30,8 @@ const Postschema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    views: {
-      type: Number,
-      default: 0,
-    },
+    views: { type: Number, default: 0 },
+    viewers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     hashtage: [
       {
         type: String,
@@ -48,5 +46,5 @@ const Postschema = new mongoose.Schema(
   },
   { timestamps: true }
 );
- const Post = mongoose.model("Post", Postschema);
+const Post = mongoose.model("Post", Postschema);
 export default Post;

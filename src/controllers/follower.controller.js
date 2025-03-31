@@ -1,5 +1,5 @@
 
-import { addFollower, removeFollower } from "../services/Follower.services.js";
+import { addFollower, removeFollower } from "../services/Follower.service.js";
 
 
 export const addfollowerController = async (req, res) => {

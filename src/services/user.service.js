@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import User from "../models/user.model.js";
-import { populate } from "dotenv";
+
 
 export const createUser = async (param) => {
   const user = await User(param).save();
@@ -49,7 +49,7 @@ export const updateUser = async (id, body) => {
 
   // ??  third method  for update the user
   const userid=  await  User.findById(id)
-  if(!userid){
+ if(!userid){
     throw new Error("user not found");
   }
   const user = await User.findByIdAndUpdate(id, body, { new: true });

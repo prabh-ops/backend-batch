@@ -4,7 +4,7 @@ import {
   getUser,
   getUsers,
   updateUser,
-} from "../services/user.services.js";
+} from "../services/user.service.js";
 
 export const createUsercontroller = async (req, res) => {
   try {

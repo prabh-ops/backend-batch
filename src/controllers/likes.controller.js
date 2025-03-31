@@ -1,4 +1,4 @@
-import { addLike, removeLike } from "../services/likes.services.js";
+import { addLike, removeLike } from "../services/likes.service.js";
 
 export async function addLikeController(req, res) {
   try {
