@@ -3,8 +3,6 @@ import connectionDb from "./database/db.js";
 import dotenv from 'dotenv'
 // import testModel from "./model.test.js";
 
-
-
 dotenv.config({
     path:"./env"
 })

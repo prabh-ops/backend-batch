@@ -80,8 +80,44 @@ components:
     User:
       type: object
       properties:
-
-      name:
-        type: string
-      email:
-        type: string
+        name:
+          type: string
+          description: "User's name"
+        email:
+          type: string
+          format: email
+          uniqueItems: true
+          description: "User's email address"
+        profilePic:
+          type: string
+          nullable: true
+          description: "Profile picture URL"
+        bio:
+          type: string
+          nullable: true
+          description: "User bio"
+        follower:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: "List of user IDs who follow this user"
+        follows:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: "List of user IDs this user follows"
+        password:
+          type: string
+          format: password
+          description: "User's hashed password"
+        post:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: "List of post IDs created by the user"
+    Post:
+      
+  

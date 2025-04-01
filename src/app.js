@@ -1,5 +1,5 @@
 import express from "express";
-import IndexRouter from "./router/index.js";
+import IndexRouter from "./router/index.router.js";
 import swaggerUI from "swagger-ui-express";
 import swaggerSpec from "./utils/swagger.js"; 
 const app = express();
