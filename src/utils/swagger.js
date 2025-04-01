@@ -1,6 +1,6 @@
 import swaggerJSDoc from 'swagger-jsdoc';
 
-const swaggerDefinition = {
+const definition = {
 openapi: "3.0.0",
 info: {
 title: "Dummy",
@@ -10,7 +10,7 @@ description: "My API Description",
 };
 
 const options = {
-swaggerDefinition,
+swaggerDefinition :definition,
 apis: ['swagger.yaml'], // Path to the API docs
 };
 

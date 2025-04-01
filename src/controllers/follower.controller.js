@@ -13,7 +13,7 @@ export const addfollowerController = async (req, res) => {
 };
 
 
-export const unfollowerController = async (req, res) => {
+export const  unfollowerController = async (req, res) => {
     try {
         const { userId, unfollowId } = req.body;
         const result = await removeFollower(userId, unfollowId);
