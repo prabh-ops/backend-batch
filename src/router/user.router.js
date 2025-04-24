@@ -6,7 +6,6 @@ import {
   updateUsercontroller,
 } from "../controllers/user.Controller.js";
 const userRouter = Router();
-
 userRouter.get("/", getUserscontroller);
 userRouter.put("/:id", updateUsercontroller);
 userRouter.delete("/:id", deleteUsercontroller);
