@@ -1,22 +1,22 @@
 import { verifyToken } from "../utils/auth.utils.js";
 
- 
- export const performAuthorization = (req, res, next) => {
-   const authHeader = req.headers.auth
-   console.log('auth :>> ', authHeader);
-   if (!authHeader) {
-     res.status(403).send({
-       message: "Token is missing in the authorization header",
-     });
-   }
-   const data = verifyToken(authHeader);
-   if (!data) {
-     res.status(403).send({
-       message: "Token is either expired or invalid",
-     });
+export default (req, res, next) => {
+  try {
+    const authHeader = req.headers.auth;
 
-   }
-    req.auth = data
-   
-   next();
- };
+    if (!authHeader) {
+      res.status(403).send({
+        message: "Token is missing in the authorization header",
+      });
+    }
+    const data = verifyToken(authHeader);
+    req.auth = data;
+
+    next();
+  } catch (error) {
+    res.status(403).send({
+      error: error.message,
+    });
+  }
+};
+

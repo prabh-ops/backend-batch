@@ -1,4 +1,5 @@
 import { connect}from "mongoose";
-const connectionDb = connect(process.env.MONGODB_URL);
+import { MONGODB_URL } from "../config/variables.js";
+const connectionDb = connect(MONGODB_URL);
 export default connectionDb
 

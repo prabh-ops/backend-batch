@@ -1,15 +1,14 @@
 import app from "./app.js";
 import connectionDb from "./database/db.js";
-import dotenv from 'dotenv'
+
 // import testModel from "./model.test.js";
 
-dotenv.config({
-    path:"./env"
-})
+import "./config/variables.js"
+import { PORT } from "./config/variables.js";
 connectionDb
   .then(() => {
     console.log("Connected to database");
-    app.listen(process.env.PORT, () => {
+    app.listen(PORT, () => {
       console.log("Server is running");
     });
   })

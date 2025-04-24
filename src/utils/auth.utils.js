@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "../config/variables.js";
 
 export const createPasswordHash = (originalPassword) => {
   return bcrypt.hashSync(originalPassword, 10);
@@ -9,9 +10,9 @@ export const comparePassword = (originalPassword, hashedPassword) => {
   return bcrypt.compareSync(originalPassword, hashedPassword);
 };
 
-export const generateToken = (data) => {
-  const token = jwt.sign(data, "12345" ,{
-    expiresIn: "1h",
+export const generateToken = (data ,expiry) => {
+  const token = jwt.sign(data, JWT_SECRET, {
+  expiresIn: expiry ||"1h",
   });
 
   return token;
@@ -19,10 +20,18 @@ export const generateToken = (data) => {
 
 export const verifyToken = (token) => {
   try {
-    const data = jwt.verify(token,"12345");
+     const secretKey = process.env.JWT_SECRET;
+    const data = jwt.verify(token, secretKey);
     return data;
   } catch (error) {
-    console.error("Invalid token", error);
-    return null;
+    if (error.name === "TokenExpiredError") {
+      throw new Error("Token has expired");
+    }
+    throw new Error("Invalid token");
   }
+};
+
+
+export const generateOTP = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString();
 };

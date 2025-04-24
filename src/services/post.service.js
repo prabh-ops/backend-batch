@@ -1,17 +1,32 @@
 import Post from "../models/Post.model.js";
 import User from "../models/user.model.js";
 
-
 export const createPost = async (userId, param) => {
-const user =await User.findById({
-  _id:userId._id
-});
+  const user = await User.findById(userId._id);
+
+  if (!user) {
+    throw new Error("User not found");
+  }
   const post = await Post({
     ...param,
+    createdBy: user._id,
   }).save();
-  console.log(userId._id,post._id)
-   await User.findByIdAndUpdate({_id:userId._id},{ $addToSet:{ post: post._id } });
-  return  user 
+
+  return post;
+};
+
+export const getUserPosts = async (user_id) => {
+  const user = await User.findById(user_id._id);
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const posts = await Post.find({
+    createdBy: user._id,
+  });
+
+  return posts;
 };
 
 // export const getPosts = async () => {

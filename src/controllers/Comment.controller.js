@@ -49,7 +49,7 @@ export async function updateCommentController(req, res) {
   }
 }
 export async function deleteCommentController(req, res) {
-    console.log(req.params.id)
+    
   try {
     const deletedComment = await deleteComment(req.params.id);
   } catch (error) {
@@ -58,7 +58,7 @@ export async function deleteCommentController(req, res) {
 }
 
 export async function deleteCommentByPostController(req, res) {
-  console.log(req.query.postId, req.query.commentId);
+ 
   try {
     const deletedComment = await deleteCommentPost(
       req.query.postId,

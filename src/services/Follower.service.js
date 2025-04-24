@@ -11,7 +11,6 @@ export const addFollower = async (userId, followerId) => {
   if (!follower) {
     return { error: true, message: "Follower not found" };
   }
- 
 
   if (!user.follower.includes(followerId)) {
     user.follower.push(followerId);
@@ -24,8 +23,8 @@ export const addFollower = async (userId, followerId) => {
     follower.follows.push(userId);
     await follower.save();
     return {
-    message:"follower added successfully"
-    }
+      message: "follower added successfully",
+    };
   } else {
     return { error: true, message: "Follower already follows this user" };
   }
@@ -53,5 +52,3 @@ export const removeFollower = async (userId, followerId) => {
 
   return { message: "Follower removed successfully" };
 };
-
-

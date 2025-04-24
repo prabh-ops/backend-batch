@@ -36,7 +36,7 @@ export async function getCommentById(commentId) {
   return comment;
 }
 // Retrieve comments for a specific post by post ID
-export async function getCommentsByPostId(postId){
+export async function getCommentsByPostId(postId) {
   const post = await Post.findById(postId)
     .populate({
       path: "comment",
@@ -54,14 +54,12 @@ export async function getCommentsByPostId(postId){
   return post.comment;
 }
 
-
-
 export async function updateComment(id, data) {
   return await Comment.findByIdAndUpdate(id, data, { new: true });
 }
 
 export async function deleteComment(id) {
-  const comment = await Comment.findById(id); 
+  const comment = await Comment.findById(id);
   await Comment.findByIdAndDelete(id);
   return {
     message: "Comment deleted successfully",
@@ -72,7 +70,7 @@ export async function deleteCommentPost(postId, commentId) {
   const post = await Post.findById({
     _id: postId,
   });
-  console.log(post);
+ 
   if (!post) {
     throw new Error("Post not found");
   }
@@ -84,11 +82,7 @@ export async function deleteCommentPost(postId, commentId) {
 
   await Comment.deleteOne({ _id: commentId });
 
-  // Remove the comment reference from the post
-  await Post.updateOne(
-    { _id: postId },
-    { $pull: { comment: commentId } } // pull method to remove the comment from the post
-  );
+  await Post.updateOne({ _id: postId }, { $pull: { comment: commentId } });
 
   return { message: "Comment deleted successfully" };
 }

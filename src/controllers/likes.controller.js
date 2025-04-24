@@ -3,7 +3,7 @@ import { addLike, removeLike } from "../services/likes.service.js";
 export async function addLikeController(req, res) {
   try {
     const { postId, userId } = req.query;
-    console.log(postId,userId)
+   
     const response = await addLike(postId, userId);
     res.status(200).json(response);
   } catch (error) {
@@ -14,7 +14,7 @@ export async function addLikeController(req, res) {
 export async function removeLikeController(req, res) {
   try {
     const { postId, userId } = req.query;
-    console.log(postId,userId)
+    
     const response = await removeLike(postId, userId);
     res.status(200).json(response);
   } catch (error) {

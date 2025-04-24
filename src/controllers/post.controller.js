@@ -1,26 +1,30 @@
 import {
   createPost,
   deletePost,
+  getUserPosts,
 } from "../services/post.service.js";
 
 export const createPostController = async (req, res) => {
-  const loggedInUserId=req.auth
   try {
-   
-    const post = await createPost( loggedInUserId,req.body);
+    const loggedInUser=req.auth
+    const post = await createPost( loggedInUser,req.body);
     res.status(201).json(post);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
-// export const getPostsController = async (req, res) => {
-//   try {
-//     const posts = await getPosts();
-//     res.status(200).json(posts);
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// };
+
+export const getUserPostsController = async (req, res) => {
+  try {
+    const loggedInUser=req.auth
+    const posts = await getUserPosts(loggedInUser);
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(400).json({message: error.message });
+  }
+};
+
+
 // export const getPostController = async (req, res) => {
 //   try {
 //     const post = await getPost(req.params.id);
@@ -38,6 +42,7 @@ export const createPostController = async (req, res) => {
 //   }
 // };
 
+ 
 
 export const deletePostController = async (req, res) => {
   try {

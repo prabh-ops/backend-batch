@@ -12,3 +12,5 @@ secret-config.json
 
 # Ignore all .log files
 *.log
+
+uploads

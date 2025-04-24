@@ -1,7 +1,7 @@
 import Post from "../models/Post.model.js";
 
 export const addLike = async (postId, userId) => {
-    console.log(postId,userId)
+  
   const like = await Post.findById(postId);
   if (!like) {
     throw new Error("Post not found");

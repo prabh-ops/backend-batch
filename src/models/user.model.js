@@ -33,12 +33,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    post:[
-      {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Post"
-      }
-    ]
+    lastOtp: {
+      type: String,
+    },
   },
   {
     timestamps: true,
