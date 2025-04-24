@@ -56,7 +56,7 @@ export async function getCommentsByPostId(postId) {
 
 export async function updateComment(id, data) {
   return await Comment.findByIdAndUpdate(id, data, { new: true });
-}
+}  
 
 export async function deleteComment(id) {
   const comment = await Comment.findById(id);
@@ -72,7 +72,7 @@ export async function deleteCommentPost(postId, commentId) {
   });
  
   if (!post) {
-    throw new Error("Post not found");
+    throw new Error("Post not found"); 
   }
 
   const comment = await Comment.findById(commentId);

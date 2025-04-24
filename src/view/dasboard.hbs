@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .fly-in {
+      transform: translateY(20px);
+      opacity: 0;
+      animation: flyIn 0.6s ease-out forwards;
+    }
+
+    @keyframes flyIn {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .popup-bg {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(6px);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-blue-600">My Dashboard</h1>
+    <button onclick="togglePopup()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+      Open Popup
+    </button>
+  </nav>
+
+  <!-- Sidebar + Main Content -->
+  <div class="flex flex-1 overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-lg p-5 hidden md:block">
+      <ul class="space-y-4 text-gray-700 font-semibold">
+        <li class="hover:text-blue-600 transition">🏠 Home</li>
+        <li class="hover:text-blue-600 transition">📊 Analytics</li>
+        <li class="hover:text-blue-600 transition">⚙️ Settings</li>
+        <li class="hover:text-blue-600 transition">📁 Files</li>
+      </ul>
+    </aside>
+
+    <!-- Main content -->
+    <main class="flex-1 p-6 space-y-6 overflow-y-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <!-- Card Example -->
+        <div class="bg-white p-6 rounded-2xl shadow-md fly-in delay-100">
+          <h2 class="text-lg font-bold mb-2">Users</h2>
+          <p class="text-3xl font-semibold text-blue-600">1,200</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-md fly-in delay-200">
+          <h2 class="text-lg font-bold mb-2">Sales</h2>
+          <p class="text-3xl font-semibold text-green-600">$18,400</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-md fly-in delay-300">
+          <h2 class="text-lg font-bold mb-2">Visitors</h2>
+          <p class="text-3xl font-semibold text-purple-600">5,482</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Popup Overlay -->
+  <div id="popup" class="fixed inset-0 hidden items-center justify-center z-50 popup-bg">
+    <div class="bg-white p-8 rounded-2xl shadow-lg max-w-sm w-full relative animate-fade-in-down">
+      <h2 class="text-xl font-bold text-gray-800 mb-4">Welcome!</h2>
+      <p class="text-gray-600 mb-6">This is an example popup. You can add anything here.</p>
+      <button onclick="togglePopup()" class="absolute top-2 right-3 text-gray-400 hover:text-gray-600">&times;</button>
+      <button onclick="togglePopup()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition w-full">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <!-- Animation Script -->
+  <script>
+    const popup = document.getElementById('popup');
+    function togglePopup() {
+      popup.classList.toggle('hidden');
+      popup.classList.toggle('flex');
+    }
+
+    // Animate cards with delay
+    document.querySelectorAll('.fly-in').forEach((el, i) => {
+      el.style.animationDelay = `${i * 0.2}s`;
+    });
+  </script>
+
+</body>
+</html>
