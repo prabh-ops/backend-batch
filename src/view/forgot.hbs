@@ -110,6 +110,7 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('forgotForm');
@@ -147,13 +148,19 @@
 
         try {
           // Simulate API call
-          await new Promise(resolve => setTimeout(resolve, 1500));
+          const response = await axios.post(`http://localhost:5000/api/auth//forgot-password`, { email });
+          if (response.status === 200) {
+            console.log('Email sent successfully');
+          } else {
+            throw new Error('Failed to send email');
+          }
           
           // Show success message
           form.classList.add('hidden');
           successMessage.classList.remove('hidden');
         } catch (error) {
           emailError.textContent = 'Something went wrong. Please try again.';
+          console.log(error.message)
           emailError.classList.remove('hidden');
         } finally {
           buttonText.classList.remove('hidden');

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern 404 Page with Animations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 via-indigo-900 to-purple-900 overflow-hidden px-4 sm:px-6">
+      <!-- Animated Background -->
+      <div class="fixed inset-0 overflow-hidden -z-10" id="particleContainer"></div>
+      
+      <!-- Content Container -->
+      <div class="relative z-10 text-center max-w-3xl mx-auto transition-transform duration-100 ease-out" id="content">
+        <!-- 404 Text -->
+        <div class="opacity-0 translate-y-8 transition-all duration-1000 text-9xl sm:text-[12rem] font-bold bg-gradient-to-r from-purple-300 to-blue-200 bg-clip-text text-transparent leading-none mb-4">
+          404
+        </div>
+        
+        <!-- Page Not Found Text -->
+        <div class="opacity-0 translate-y-8 transition-all duration-1000 delay-300 text-3xl sm:text-5xl font-semibold text-white mb-6 tracking-wide">
+          Page Not Found
+        </div>
+        
+        <!-- Description Text -->
+        <div class="opacity-0 translate-y-8 transition-all duration-1000 delay-500 text-lg text-gray-300 mb-10 max-w-xl mx-auto">
+          Oops! The page you're looking for seems to have drifted into another dimension.
+        </div>
+        
+        <!-- Button -->
+        <div class="opacity-0 translate-y-4 transition-all duration-700 delay-700">
+          <button onclick="window.location.href='/'" class="group px-6 py-3 font-medium text-white bg-gradient-to-r from-purple-600 to-blue-500 rounded-lg transition-all duration-300 transform hover:scale-105 hover:from-purple-700 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2">
+            <span class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              <span>Return Home</span>
+            </span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Footer Text -->
+      <div class="absolute bottom-8 left-0 right-0 text-center text-gray-400 text-sm opacity-0 transform translate-y-4 transition-all duration-700 delay-1000">
+        Lost? Don't worry, we've all been there.
+      </div>
+    </div>
+
+    <script>
+      // Create and animate particles
+      const particleContainer = document.getElementById('particleContainer');
+      const particles = Array.from({ length: 30 }, (_, i) => ({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 40 + 10,
+        speed: Math.random() * 0.5 + 0.1,
+        opacity: Math.random() * 0.5 + 0.1
+      }));
+
+      // Create particle elements
+      particles.forEach(particle => {
+        const element = document.createElement('div');
+        element.className = 'absolute rounded-full bg-gradient-to-br from-purple-500/30 to-blue-500/30 blur-xl transition-opacity duration-500';
+        element.style.left = `${particle.x}%`;
+        element.style.top = `${particle.y}%`;
+        element.style.width = `${particle.size}px`;
+        element.style.height = `${particle.size}px`;
+        element.style.opacity = particle.opacity.toString();
+        particleContainer.appendChild(element);
+      });
+
+      // Animate particles
+      let lastTime = 0;
+      function animate(time) {
+        if (lastTime === 0) lastTime = time;
+        const delta = time - lastTime;
+        lastTime = time;
+
+        particles.forEach((particle, index) => {
+          particle.y -= particle.speed * (delta / 16);
+          particle.x += (particle.speed * 0.5) * (delta / 16);
+
+          if (particle.y < -10) particle.y = 110;
+          if (particle.x > 110) particle.x = -10;
+
+          const element = particleContainer.children[index];
+          element.style.transform = `translate(${particle.x}%, ${particle.y}%)`;
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+
+      // Mouse parallax effect
+      const content = document.getElementById('content');
+      document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth) * 20 - 10;
+        const y = (e.clientY / window.innerHeight) * 20 - 10;
+        content.style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
+      });
+
+      // Trigger initial animations
+      setTimeout(() => {
+        document.querySelectorAll('.opacity-0').forEach(element => {
+          element.classList.remove('opacity-0', 'translate-y-8', 'translate-y-4');
+        });
+      }, 100);
+    </script>
+  </body>
+</html>

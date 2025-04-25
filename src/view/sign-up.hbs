@@ -87,18 +87,7 @@
               name="firstName"
               required
               class="form-input w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
-              placeholder="John"
-            />
-          </div>
-          <div>
-            <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              required
-              class="form-input w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
-              placeholder="Doe"
+              placeholder="name"
             />
           </div>
         </div>
@@ -189,6 +178,7 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('signupForm');
@@ -280,12 +270,23 @@
 
         try {
           // Simulate API call
-          await new Promise(resolve => setTimeout(resolve, 1500));
+          const response = await axios.post('http://localhost:5000/api/auth/sign-up', {
+            name: form.firstName.value,
+            email: form.email.value,
+            password: form.password.value,
+          });
+
+          console.log('Response:', response.data);
+
+          if (response.status !== 200) {
+            throw new Error('Failed to create account');
+          }
           
           // Show success message
           form.classList.add('hidden');
           successMessage.classList.remove('hidden');
         } catch (error) {
+          console.error('Error:', error.response ? error.response.data : error.message);
           emailError.textContent = 'Something went wrong. Please try again.';
           emailError.classList.remove('hidden');
         } finally {

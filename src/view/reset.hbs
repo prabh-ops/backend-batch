@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,22 +30,23 @@
   </script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    
+
     body {
       font-family: 'Inter', sans-serif;
       background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
-    
+
     .form-input {
       transition: all 0.3s ease;
     }
-    
+
     .form-input:focus {
       transform: translateY(-1px);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
   </style>
 </head>
+
 <body class="min-h-screen flex items-center justify-center p-4">
   <div class="w-full max-w-md animate-fade-in">
     <div class="bg-white/80 backdrop-blur-xl rounded-2xl shadow-2xl p-8 animate-slide-up">
@@ -55,37 +57,15 @@
 
       <form id="resetForm" class="space-y-6">
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            class="form-input w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition-all duration-300"
-            placeholder="your@email.com"
-          />
-        </div>
-
-        <div>
           <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
             New Password
           </label>
           <div class="relative">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              required
+            <input type="password" id="password" name="password" required
               class="form-input w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition-all duration-300"
-              placeholder="••••••••"
-            />
-            <button
-              type="button"
-              id="togglePassword"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-            >
+              placeholder="••••••••" />
+            <button type="button" id="togglePassword"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
               Show
             </button>
           </div>
@@ -100,38 +80,35 @@
           <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-2">
             Confirm New Password
           </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            required
+          <input type="password" id="confirmPassword" name="confirmPassword" required
             class="form-input w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition-all duration-300"
-            placeholder="••••••••"
-          />
+            placeholder="••••••••" />
         </div>
 
-        <button
-          type="submit"
-          class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-xl hover:opacity-90 transition duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 font-medium"
-        >
+        <button type="submit"
+          class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-xl hover:opacity-90 transition duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 font-medium">
           <span id="buttonText">Reset Password</span>
           <span id="loadingSpinner" class="hidden">
             <svg class="animate-spin h-5 w-5 mx-auto" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+              </path>
             </svg>
           </span>
         </button>
       </form>
 
       <div class="mt-8 text-center">
-        <a href="/" class="text-sm font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-300">
+        <a href="/sign-in" class="text-sm font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-300">
           ← Back to Login
         </a>
       </div>
     </div>
   </div>
 
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('resetForm');
@@ -160,7 +137,7 @@
         if (value.match(/[^A-Za-z0-9]/)) strength += 25;
 
         passwordStrength.style.width = `${strength}%`;
-        
+
         if (strength <= 25) {
           passwordStrength.className = 'h-full bg-red-500 transition-all duration-300';
         } else if (strength <= 50) {
@@ -175,7 +152,7 @@
       // Form submission
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         if (passwordInput.value !== confirmPasswordInput.value) {
           alert('Passwords do not match');
           return;
@@ -185,16 +162,34 @@
         buttonText.classList.add('hidden');
         loadingSpinner.classList.remove('hidden');
 
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        const password = passwordInput.value;
+        const token = new URLSearchParams(window.location.search).get('token');
 
-        // Reset form and show success message
+        try {
+          const response = await axios.post(`http://localhost:5000/api/auth/reset-password?token=${token}`, {
+            newPassword:password,
+          });
+
+          console.log('Response from backend:', response);
+
+          if (response.status === 200) {
+            alert('Password reset successful!');
+            window.location.href="/sign-in"
+          } else {
+            alert('Failed to reset password. Please try again.');
+          }
+        } catch (error) {
+          console.error('Error resetting password:', error.message);
+         
+        }
+
+        // Reset form and hide loading state
         buttonText.classList.remove('hidden');
         loadingSpinner.classList.add('hidden');
-        alert('Password reset successful!');
         form.reset();
       });
     });
   </script>
 </body>
+
 </html>

@@ -11,13 +11,13 @@ import { sendEmail } from "../utils/email.utils.js";
 export const signUpController = async (req, res) => {
   try {
     const user = await signUp(req.body);
-   
+
     await sendEmail({
       subject: "Welcome to the app",
       body: "Hello " + req.body.name + ". we are very excited to have you here",
       to: req.body.email,
     });
-   
+
     res.json({ data: user });
   } catch (error) {
     res.status(500).json(error);
@@ -27,9 +27,14 @@ export const signUpController = async (req, res) => {
 export const signInController = async (req, res) => {
   try {
     const user = await signIn(req.body);
+    res.cookie("access_token", user.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
     res.send(user);
   } catch (error) {
-    res.status(401).json({
+    res.status(500).json({
       message: error.message,
     });
   }
@@ -68,5 +73,17 @@ export const resetPasswordController = async (req, res) => {
     res.status(500).send({
       message: error.message || "Something went wrong!",
     });
+  }
+};
+
+export const signOutController = async (req, res) => {
+  try {
+    const cookieToken = req.cookies.access_token;
+    res.clearCookie(cookieToken);
+    res.send({
+      message: "Logout successful",
+    });
+  } catch (error) {
+    res.send(error.message);
   }
 };

@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -142,6 +142,7 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('signinForm');
@@ -187,11 +188,10 @@
         form.querySelector('button').disabled = true;
 
         try {
-          // Simulate API call
-          await new Promise(resolve => setTimeout(resolve, 1500));
-          
-          // Simulate failed login for demo
-          if (Math.random() > 0.5) {
+          // API call using axios
+          const response = await axios.post('http://localhost:5000/api/auth/sign-in', { email, password });
+          console.log(response)
+          if (response.status !== 200) {
             throw new Error('Invalid credentials');
           }
 
@@ -199,6 +199,7 @@
           window.location.href = '/dashboard';
         } catch (error) {
           errorMessage.classList.remove('hidden');
+          console.error(error.message);
         } finally {
           buttonText.classList.remove('hidden');
           loadingSpinner.classList.add('hidden');
@@ -208,4 +209,3 @@
     });
   </script>
 </body>
-</html>

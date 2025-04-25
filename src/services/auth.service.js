@@ -85,7 +85,7 @@ export const forgotPasswordV2 = async (email) => {
   if (!user) {
     throw new Error("User Not Found");
   }
-  const token = generateToken({ email, tokenType: "forgotPassword" }, "2m");
+  const token = generateToken({ email, tokenType: "forgotPassword" }, "10m");
 
   await sendEmail({
     subject: "Your password reset link",
@@ -102,11 +102,11 @@ export const forgotPasswordV2 = async (email) => {
 export const resetPasswordV2 = async ({ token, newPassword }) => {
   const data = verifyToken(token);
   if (!data) {
-    throw Error("Data not found");
+    throw new Error("Data not found");
   }
   const email = data.email;
 
-  const newpwdhash = await createPasswordHash(newPassword);
+  const newpwdhash = createPasswordHash(newPassword);
 
   await User.findOneAndUpdate(
     {
