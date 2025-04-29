@@ -7,7 +7,7 @@ import {
   verifyToken,
 } from "../utils/auth.utils.js";
 import { createUser } from "./user.service.js";
-import { sendEmail } from "../utils/email.utils.js";
+import { sendEmail } from "../utils/sendEmail.utils.js";
 
 export const signUp = async ({ name, email, password }) => {
   const hashedPassword = createPasswordHash(password);

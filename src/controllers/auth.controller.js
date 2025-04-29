@@ -6,7 +6,7 @@ import {
   signIn,
   signUp,
 } from "../services/auth.service.js";
-import { sendEmail } from "../utils/email.utils.js";
+import { sendEmail } from "../utils/sendEmail.utils.js";
 
 export const signUpController = async (req, res) => {
   try {
