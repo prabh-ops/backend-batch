@@ -11,6 +11,7 @@ import viewRenderRouter from "./view.router.js";
 import taskRouter from "./task.router.js";
 
 const IndexRouter = express.Router();
+IndexRouter.use("/", viewRenderRouter);
 IndexRouter.use("/api/auth", authRouter);
 IndexRouter.use("/api/user", userRouter);
 IndexRouter.use("/api/post", postRouter);
@@ -19,7 +20,6 @@ IndexRouter.use("/api/upload", uploadRouter);
 IndexRouter.use("/api/likes", likeRouter);
 IndexRouter.use("/api/follower", followerRouter);
 IndexRouter.use("/api/view", viewRouter);
-IndexRouter.use("/", viewRenderRouter);
 IndexRouter.use("/api/tasks", taskRouter)
 
 export default IndexRouter;

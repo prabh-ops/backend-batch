@@ -84,8 +84,8 @@ import { renderTemplate } from "../utils/template.utils.js"; // Ensure this path
 
     const html=await renderTemplate(res,"invoice",invoiceData)
       const pdfBuffer = await generateCustomPdfBuffer(html);
-      res.type('pdf');
-      res.setHeader('Content-Disposition', 'attachment; filename=invoice.pdf');
+      res.contentType("application/pdf")
+      res.setHeader('Content-Disposition', 'attachment; filename=tasks.pdf');
       res.send(pdfBuffer);
   
     } catch (error) {
